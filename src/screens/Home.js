@@ -12,7 +12,7 @@ import {
 import * as itemActions from '../store/actions/item';
 import Colors from '../constant/Colors';
 import {ListItem} from '../components/ListItem';
-
+import {convertDate} from '../helper/helper';
 
 const HomeScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,18 +39,9 @@ const HomeScreen = props => {
     });
   }, [dispatch, loadProduct]);
 
-  const convertDate = (date) => {
-    return new Date(date).toDateString();
-}
-
-  const onItemPress = (itemData) => {
+  const onItemPress = data => {
     props.navigation.navigate('detailsScreen', {
-      title:itemData.item.trackName,
-      imageUrl:itemData.item.artworkUrl100,
-      artistName:itemData.item.artistName,
-      price:itemData.item.collectionPrice,
-      date:convertDate(itemData.item.releaseDate),
-      collectionName:itemData.item.collectionName,
+      data,
     });
   };
 
@@ -95,9 +86,9 @@ const HomeScreen = props => {
             ).toString()
           );
         }}
-        renderItem={(itemData,index) => (
+        renderItem={(itemData, index) => (
           <ListItem
-            onPressItem={onItemPress.bind(this,itemData)}
+            onPressItem={onItemPress.bind(this, itemData)}
             imageUrl={itemData.item.artworkUrl100}
             title={itemData.item.trackName}
             artistName={itemData.item.artistName}

@@ -2,16 +2,19 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import Colors from '../constant/Colors';
 
+const SubTitle=({text}) => <Text style={styles.subTitleStyle}>{text}</Text>
+
 export const ListItem = props => {
+  const {onPressItem,imageUrl,title,artistName,price,date} = props;
   return (
-    <TouchableOpacity style={styles.container} onPress={props.onPressItem}>
+    <TouchableOpacity style={styles.container} onPress={onPressItem}>
       <View style={styles.subcontainer}>
-        <Image style={styles.imageStyle} source={{uri: props.imageUrl}}></Image>
+        <Image style={styles.imageStyle} source={{uri:imageUrl}}></Image>
         <View style={styles.infoStyle}>
-          <Text style={styles.titleStyle}>{props.title}</Text>
-          <Text style={styles.subTitleStyle}>{props.artistName}</Text>
-          <Text style={styles.subTitleStyle}>Price: {props.price}$</Text>
-          <Text style={styles.subTitleStyle}>Release Date: {props.date}</Text>
+          <Text style={styles.titleStyle}>{title}</Text>
+          <SubTitle text={artistName}/>
+          <SubTitle text={`Price: ${price}$`}/>
+          <SubTitle text={`Release Date: ${date}`}/>
         </View>
       </View>
     </TouchableOpacity>

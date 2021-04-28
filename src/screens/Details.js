@@ -8,27 +8,25 @@ import {
   Image,
 } from 'react-native';
 import Colors from '../constant/Colors';
+import {convertDate} from '../helper/helper';
 
 const DetailsScreen = props => {
-  const songTitle = props?.navigation?.getParam('title');
-  const imageUrl = props?.navigation?.getParam('imageUrl');
-  const artistName = props?.navigation?.getParam('artistName');
-  const price = props?.navigation?.getParam('price');
-  const date = props?.navigation?.getParam('date');
-  const collectionName = props?.navigation?.getParam('collectionName');
+    const data =  props?.navigation?.getParam('data');
+    const {item} = data;
+    const {trackName,artworkUrl100,artistName,collectionPrice,releaseDate,collectionName} = item;
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.flexView}>
-          <Image style={styles.imageStyle} source={{uri: imageUrl}}></Image>
+          <Image style={styles.imageStyle} source={{uri: artworkUrl100}}></Image>
           <View style={styles.subContainer}>
-          <Text style={styles.titleStyle}>{songTitle}</Text>
+          <Text style={styles.titleStyle}>{trackName}</Text>
           <Text style={styles.subTitleStyle}>Collection: {collectionName}</Text>
           <Text style={styles.subTitleStyle}>Artist: {artistName}</Text>
           <View style={styles.dateViewStyle}>
-            <Text style={[styles.subTitleStyle,styles.flexView]}>Release Date: {date}</Text>
-            <Text style={[styles.subTitleStyle,styles.priceTextView]}>Price: {price} $</Text>
+            <Text style={[styles.subTitleStyle,styles.flexView]}>Release Date: {convertDate(releaseDate)}</Text>
+            <Text style={[styles.subTitleStyle,styles.priceTextView]}>Price: {collectionPrice} $</Text>
           </View>
         </View>
         </View>
